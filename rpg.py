@@ -186,7 +186,11 @@ def offline(guild1, guild2):
                 for idx, char in enumerate(target_guild):
                     etat = "MORT" if char.is_alive == False else f"HP: {char.health}"
                     print(f"{idx + 1}: {char.name} ({etat})")
-                target_idx = int(input("Numéro de la cible : ")) - 1
+                try:
+                    target_idx = int(input("Numéro de la cible : ")) - 1
+                except ValueError:
+                    print("Veuillez entrer un nombre valide.")
+                    continue
                 if 0 <= target_idx < len(target_guild):
                     target = target_guild[target_idx]
                     if target.is_alive == False:
@@ -248,14 +252,17 @@ def quitter_jeu():
 def afficher_menu():
     while True:
         afficher_titre()
-        print("1. Lancer le jeu")
-        print("2. Quitter\n")
+        print("1. Nouvelle partie")
+        print("2. Continuer partie")  
+        print("3. Quitter\n")
 
         choix = input("Sélectionne une option: ")
 
         if choix == '1':
             jeux()
         elif choix == '2':
+            continuer_partie()
+        elif choix == '3':
             quitter_jeu()
         else:
             print("\nChoix invalide. Réessaie.\n")
